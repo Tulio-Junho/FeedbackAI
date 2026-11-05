@@ -12,7 +12,7 @@ Um classificador de feedbacks desenvolvido em Python, utilizando a API do Google
 
 O FeedbackAI tem como objetivo facilitar a análise de feedbacks de clientes por meio de inteligência artificial.
 
-O programa lê mensagens armazenadas em um arquivo `.txt` e utiliza um modelo de linguagem (LLM) para classificá-las em quatro categorias:
+O programa lê mensagens armazenadas em um arquivo `.txt` e utiliza um modelo de linguagem para classificá-las em quatro categorias:
 
 - **Elogio**
 - **Reclamação**
