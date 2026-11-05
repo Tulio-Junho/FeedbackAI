@@ -2,7 +2,9 @@
 
 Um classificador de feedbacks desenvolvido em Python, utilizando a API do Google Gemini para analisar mensagens e classificá-las automaticamente. No exemplo que usei no código, mensagens como se fosse em um aplicativo de entrega de comida.
 
-<img width="480" height="480" alt="Image" src="https://github.com/user-attachments/assets/64860cb0-970b-499f-b1a1-8ded594acbae" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/64860cb0-970b-499f-b1a1-8ded594acbae" alt="FeedbackAI" width="350">
+</p>
 
 ## 📌 Sobre o projeto
 
