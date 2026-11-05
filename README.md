@@ -4,7 +4,7 @@ Um classificador de feedbacks desenvolvido em Python, utilizando a API do Google
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/64860cb0-970b-499f-b1a1-8ded594acbae" width="250">
-  <img src="(https://github.com/user-attachments/assets/992ba052-3953-437c-b27d-61f911ae43ba)" width="250">
+  <img src="https://github.com/user-attachments/assets/992ba052-3953-437c-b27d-61f911ae43ba" width="250">
 </p>
 
 
