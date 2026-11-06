@@ -1,0 +1,5 @@
+flask
+google-genai
+python-dotenv
+
+use python -m pip install -r requirements.txt para instalar

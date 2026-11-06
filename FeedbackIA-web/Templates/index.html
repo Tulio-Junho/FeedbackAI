@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+
+    <meta charset="UTF-8">
+    <title>FeedbackAI</title>
+
+</head>
+
+<body>
+    <h1>FeedbackAI</h1>
+    <p>Classifique sua mensagem com inteligência artificial</p>
+
+    <input id="mensagem" type="text" placeholder="Digite sua mensagem aqui">
+    <button onclick = "classificar()">Classificar</button>
+
+    <p id="resultado"></p>
+
+    <script>
+        async function classificar()
+        {
+            let mensagem = document.getElementById("mensagem").value;
+
+            let resposta = await fetch("/Classificar", {
+                method: "POST",
+                body: mensagem
+            });
+
+            let resultado = await resposta.text();
+
+            document.getElementById("resultado").innerText = resultado;
+        }
+
+        
+    </script>
+
+</body>
+
+
+</html>
