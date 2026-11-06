@@ -12,7 +12,9 @@ Um classificador de feedbacks desenvolvido em Python, utilizando a API do Google
 
 O FeedbackAI tem como objetivo facilitar a análise de feedbacks de clientes por meio de inteligência artificial.
 
-O programa lê mensagens armazenadas em um arquivo `.txt` e utiliza um modelo de linguagem para classificá-las em quatro categorias:
+O projeto possui duas versões: uma aplicação Python executada pelo terminal, que lê mensagens armazenadas em um arquivo .txt, e uma aplicação Web, que permite classificar mensagens diretamente pelo navegador.
+
+Ambas utilizam a API do Google Gemini para classificar os feedbacks em quatro categorias:v
 
 - **Elogio**
 - **Reclamação**
@@ -28,28 +30,75 @@ Ao final, o programa apresenta estatísticas com a quantidade e a porcentagem de
 - Google Gen AI SDK (`google-genai`)
 - Python Dotenv (`python-dotenv`)
 - Biblioteca csv (`csv`)
+- Flask
+- HTML
+- CSS
+- JavaScript
 
 ## ⚙️ Como executar
 
-1. Clone o repositório.
-2. Instale as dependências:
+### 1. Clone o repositório
 
-   ```bash
-   pip install google-genai python-dotenv
-   ```
+```bash
+git clone https://github.com/Tulio-Junho/FeedbackIA.git
+cd FeedbackIA
+```
 
-3. Crie um arquivo `.env` na pasta do projeto e adicione sua chave da API:
+### 2. FeedbackAI Original
 
-   ```env
-   chave=sua_chave_aqui
-   ```
+Entre na pasta da versão original:
 
-4. Adicione os feedbacks ao arquivo `mensagens.txt`, colocando uma mensagem por linha.
-5. Execute o programa:
+```bash
+cd FeedbackAI-Original
+```
 
-   ```bash
-   python main.py
-   ```
+Instale as dependências:
+
+```bash
+pip install google-genai python-dotenv
+```
+
+Crie um arquivo `.env` dentro da pasta `FeedbackAI-Original` e adicione sua chave da API:
+
+```env
+chave=sua_chave_aqui
+```
+
+Adicione os feedbacks ao arquivo `mensagens.txt`, colocando uma mensagem por linha.
+
+Execute o programa:
+
+```bash
+python main.py
+```
+
+### 3. FeedbackAI Web
+
+A partir da pasta principal do repositório, entre na pasta da versão Web:
+
+```bash
+cd FeedbackIA-web
+```
+
+Instale as dependências:
+
+```bash
+pip install -r requirements.txt
+```
+
+Crie um arquivo `.env` dentro da pasta `FeedbackIA-web` e configure sua chave da API:
+
+```env
+chave=sua_chave_aqui
+```
+
+Execute a aplicação:
+
+```bash
+python app.py
+```
+
+Acesse o endereço local informado pelo Flask no terminal.
 
 ## 📊 Exemplo de resultado
 
@@ -65,15 +114,26 @@ Os resultados também são registrados no arquivo `resultado.csv`.
 
 ## 📁 Estrutura do projeto
 
-```text
-FeedbackAI/
-├── main.py
-├── mensagens.txt
+FeedbackIA/
+├── FeedbackAI-Original/
+│   ├── main.py
+│   ├── mensagens.txt
+│   ├── resultado.csv
+│   └── .env
+│
+├── FeedbackIA-web/
+│   ├── app.py
+│   ├── Templates/
+│   │   └── index.html
+│   ├── static/
+│   │   └── style.css
+│   ├── requirements.txt
+│   ├── README.md
+│   ├── .gitignore
+│   └── .env
+│
 ├── README.md
-├── .gitignore
-├── resultado.csv (gerado automaticamente)
-└── .env (arquivo local, não publicado)
-```
+└── .gitignore
 
 O arquivo `resultado.csv` é gerado durante a execução do programa.
 
@@ -82,7 +142,7 @@ O arquivo `resultado.csv` é gerado durante a execução do programa.
 Os resultados também são registrados no arquivo `resultado.csv`,
 organizados em duas colunas: **Feedback** e **Categoria**
 
-🌐 FeedbackAI Web
+## 🌐 FeedbackAI Web
 
 O projeto também possui uma extensão chamada FeedbackAI Web, desenvolvida com Flask, HTML, CSS e JavaScript.
 
@@ -98,4 +158,4 @@ O projeto ainda está em desenvolvimento, e novas atualizações e funcionalidad
 
 ## 🎯 Objetivo
 
-Praticar programação em Python, integração com APIs, manipulação de arquivos, análise básica de dados e aplicação de modelos de inteligência artificial na resolução de problemas práticos.
+Praticar programação em Python, integração com APIs, manipulação de arquivos, análise básica de dados, desenvolvimento Web e aplicação de modelos de inteligência artificial na resolução de problemas práticos.
