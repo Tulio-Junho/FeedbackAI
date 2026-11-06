@@ -1,4 +1,5 @@
 import os
+import csv
 from dotenv import load_dotenv
 from google import genai
 
@@ -10,8 +11,10 @@ cliente = genai.Client(api_key = chave)
 
 arquivo = open("mensagens.txt", "r", encoding= "utf-8")
 
-resultado = open("resultado.csv", "w", encoding= "utf-8")
+resultado = open("resultado.csv", "w", encoding= "utf-8-sig", newline="")
 
+escritor = csv.writer(resultado, delimiter=";")
+escritor.writerow(["Feedback", "Categoria"])
 
 elogios = 0
 duvidas = 0
@@ -38,7 +41,7 @@ for feedback in arquivo:
     print("=================================")
 
     categoria = resposta.text.strip()
-    resultado.write(f"{feedback.strip()} -> {categoria}\n")
+    escritor.writerow([feedback.strip(), categoria])
 
     if categoria == "Elogio":
         elogios += 1
@@ -56,11 +59,14 @@ for feedback in arquivo:
 arquivo.close()    
 resultado.close()
 
-print ("\n============== Resumo das Classificações ==============")
+total = elogios + reclamações + sugestões + duvidas
 
-print("Elogios:" , elogios)
-print("Reclamações:" , reclamações)
-print("Sugestões:" , sugestões)
-print("Dúvidas:" , duvidas)
+if total > 0:
 
+    print ("\n============== Estatísticas ==============")
+
+    print(f"elogios: {elogios / total * 100:.2f}% - Quantidade de Elogios: {elogios}")
+    print(f"Reclamações: {reclamações / total * 100:.2f}% - Quantidade de Reclamações: {reclamações}")
+    print(f"Sugestões: {sugestões / total * 100:.2f}% - Quantidade de Sugestões: {sugestões}")
+    print(f"Dúvidas: {duvidas / total * 100:.2f}% - Quantidade de Dúvidas: {duvidas}")
 
