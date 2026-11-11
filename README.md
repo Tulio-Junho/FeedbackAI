@@ -143,7 +143,7 @@ FeedbackIA/
 ├── FeedbackAI-Original/
 │   ├── main.py
 │   ├── mensagens.txt
-│   └── resultado.csv
+│   └── Resultado.csv
 │
 ├── FeedbackIA-web/
 │   ├── app.py
