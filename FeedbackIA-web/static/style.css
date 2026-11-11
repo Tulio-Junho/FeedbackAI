@@ -1,6 +1,75 @@
-body{
-    background-color: black;
+
+body {
+    background-color: #121212;
     color: white;
     font-family: Arial, sans-serif;
-    text-align: center;
+    margin: 30px;
+}
+
+h1 {
+    color: #6495ed;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.blocos {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.bloco {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    flex: 1;
+}   
+
+input, textarea, select {
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 5px;
+}
+
+textarea {
+    width: 95%;
+    height: 80px;
+}
+
+button {
+    background-color: #4169e1;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:disabled {
+    opacity: 0.5;
+}
+
+#areaArquivo {
+    padding: 0;
+    border: none;
+}
+
+#listaAvaliacoes div {
+    background-color: #333;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+@media (max-width: 700px) {
+    .blocos {
+        flex-direction: column;
+    }
 }

@@ -1,42 +1,324 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-    <link rel="stylesheet" href="/static/style.css">
-
     <meta charset="UTF-8">
-    <title>FeedbackAI</title>
-
+    <link rel="stylesheet" href="/static/style.css">
+    <title>FeedbackIA</title>
 </head>
 
 <body>
-    <h1>FeedbackAI</h1>
-    <p>Classifique sua mensagem com inteligência artificial</p>
+    <div class="container">
+        <h1>FeedbackIA</h1>
+        <p>Classifique avaliações com inteligência artificial</p>
 
-    <input id="mensagem" type="text" placeholder="Digite sua mensagem aqui">
-    <button onclick = "classificar()">Classificar</button>
+        <div class="blocos">
+            <div class="bloco">
+                <h2>Classificação individual</h2>
 
-    <p id="resultado"></p>
+                <textarea id="mensagem" placeholder="Digite sua avaliação"></textarea>
+
+                <button id="botao" onclick="classificar()">
+                    Classificar
+                </button>
+            </div>
+
+            <div class="bloco">
+                <h2>Classificação por arquivo</h2>
+
+                <div id="areaArquivo">
+                    <p>Arraste um arquivo TXT ou selecione abaixo:</p>
+
+                    <input
+                        id="arquivo"
+                        type="file"
+                        accept=".txt"
+                        onchange="selecionarArquivo(event)"
+                    >
+                </div>
+
+                <p id="nomeArquivo"></p>
+
+                <button id="botaoArquivo" onclick="classificarArquivo()" disabled>
+                    Classificar arquivo
+                </button>
+            </div>
+        </div>
+
+        <div class="bloco">
+            <h2>Resultado</h2>
+            <p id="progresso"></p>
+            <p id="resultado"></p>
+        </div>
+
+        <div class="bloco">
+            <h2>Resumo das avaliações</h2>
+
+            <p>Total: <span id="total">0</span></p>
+            <p>Elogios: <span id="elogios">0</span></p>
+            <p>Reclamações: <span id="reclamacoes">0</span></p>
+            <p>Sugestões: <span id="sugestoes">0</span></p>
+            <p>Dúvidas: <span id="duvidas">0</span></p>
+        </div>
+
+        <div class="bloco">
+            <h2>Avaliações classificadas</h2>
+
+            <select id="filtro" onchange="mostrarAvaliacoes()">
+                <option value="Todas">Todas</option>
+                <option value="Elogio">Elogios</option>
+                <option value="Reclamação">Reclamações</option>
+                <option value="Sugestão">Sugestões</option>
+                <option value="Dúvida">Dúvidas</option>
+            </select>
+
+            <p id="quantidadeExibida">Exibindo 0 de 0 avaliações</p>
+            <div id="listaAvaliacoes"></div>
+        </div>
+    </div>
 
     <script>
-        async function classificar()
-        {
-            let mensagem = document.getElementById("mensagem").value;
+        let avaliacoes = [];
 
+        let elogios = 0;
+        let reclamacoes = 0;
+        let sugestoes = 0;
+        let duvidas = 0;
+
+        let arquivoSelecionado = null;
+        let processando = false;
+
+        async function enviarParaClassificacao(mensagem) {
             let resposta = await fetch("/Classificar", {
                 method: "POST",
                 body: mensagem
             });
 
-            let resultado = await resposta.text();
+            if (!resposta.ok) {
+                throw new Error("Erro na classificação");
+            }
 
-            document.getElementById("resultado").innerText = resultado;
+            return (await resposta.text()).trim();
         }
 
-        
+        function registrarAvaliacao(mensagem, resultado) {
+            if (!["Elogio", "Reclamação", "Sugestão", "Dúvida"].includes(resultado)) {
+                return false;
+            }
+
+            avaliacoes.push({
+                mensagem: mensagem,
+                categoria: resultado
+            });
+
+            if (resultado === "Elogio") {
+                elogios++;
+            } else if (resultado === "Reclamação") {
+                reclamacoes++;
+            } else if (resultado === "Sugestão") {
+                sugestoes++;
+            } else if (resultado === "Dúvida") {
+                duvidas++;
+            }
+
+            atualizarResumo();
+            mostrarAvaliacoes();
+
+            return true;
+        }
+
+        async function classificar() {
+            if (processando) return;
+
+            let mensagem = document.getElementById("mensagem").value.trim();
+
+            if (mensagem === "") {
+                document.getElementById("resultado").innerText =
+                    "Digite uma mensagem antes de classificar.";
+                return;
+            }
+
+            processando = true;
+            alterarBotoes(true);
+
+            try {
+                let resultado = await enviarParaClassificacao(mensagem);
+
+                registrarAvaliacao(mensagem, resultado);
+
+                document.getElementById("resultado").innerText = resultado;
+            } catch (erro) {
+                document.getElementById("resultado").innerText =
+                    "Não foi possível classificar a mensagem.";
+            } finally {
+                processando = false;
+                alterarBotoes(false);
+            }
+        }
+
+        function selecionarArquivo(event) {
+            prepararArquivo(event.target.files[0]);
+        }
+
+        function prepararArquivo(arquivo) {
+            if (!arquivo || processando) return;
+
+            if (!arquivo.name.toLowerCase().endsWith(".txt")) {
+                document.getElementById("nomeArquivo").innerText =
+                    "Selecione um arquivo TXT.";
+
+                arquivoSelecionado = null;
+                document.getElementById("arquivo").value = "";
+                alterarBotoes(false);
+                return;
+            }
+
+            arquivoSelecionado = arquivo;
+
+            document.getElementById("nomeArquivo").innerText =
+                "Arquivo selecionado: " + arquivo.name;
+
+            document.getElementById("progresso").innerText = "";
+
+            alterarBotoes(false);
+        }
+
+        let areaArquivo = document.getElementById("areaArquivo");
+
+        areaArquivo.addEventListener("dragover", function(event) {
+            event.preventDefault();
+        });
+
+        areaArquivo.addEventListener("drop", function(event) {
+            event.preventDefault();
+
+            if (processando) return;
+
+            prepararArquivo(event.dataTransfer.files[0]);
+        });
+
+        async function classificarArquivo() {
+            if (!arquivoSelecionado || processando) return;
+
+            processando = true;
+            alterarBotoes(true);
+
+            let progresso = document.getElementById("progresso");
+            let resultado = document.getElementById("resultado");
+
+            try {
+                let conteudo = await arquivoSelecionado.text();
+
+                let mensagens = conteudo
+                    .split(/\r?\n/)
+                    .map(linha => linha.trim())
+                    .filter(linha => linha !== "");
+
+                if (mensagens.length === 0) {
+                    progresso.innerText = "O arquivo está vazio.";
+                    return;
+                }
+
+                let identificadas = 0;
+                let naoIdentificadas = 0;
+                let erros = 0;
+
+                resultado.innerText = "";
+
+                for (let i = 0; i < mensagens.length; i++) {
+                    progresso.innerText =
+                        `Processando ${i + 1} de ${mensagens.length} avaliações...`;
+
+                    try {
+                        let categoria = await enviarParaClassificacao(mensagens[i]);
+
+                        if (registrarAvaliacao(mensagens[i], categoria)) {
+                            identificadas++;
+                        } else {
+                            naoIdentificadas++;
+                        }
+                    } catch (erro) {
+                        erros++;
+                    }
+                }
+
+                progresso.innerText = "Processamento concluído.";
+
+                resultado.innerText =
+                    `${identificadas} classificadas, ` +
+                    `${naoIdentificadas} não identificadas e ${erros} erros.`;
+
+            } catch (erro) {
+                progresso.innerText = "Não foi possível ler o arquivo.";
+            } finally {
+                processando = false;
+                alterarBotoes(false);
+            }
+        }
+
+        function alterarBotoes(desativar) {
+            document.getElementById("botao").disabled = desativar;
+
+            document.getElementById("botaoArquivo").disabled =
+                desativar || arquivoSelecionado === null;
+
+            document.getElementById("arquivo").disabled = desativar;
+        }
+
+        function atualizarResumo() {
+            let total = elogios + reclamacoes + sugestoes + duvidas;
+
+            document.getElementById("total").innerText = total;
+
+            document.getElementById("elogios").innerText =
+                `${elogios} (${porcentagem(elogios, total)}%)`;
+
+            document.getElementById("reclamacoes").innerText =
+                `${reclamacoes} (${porcentagem(reclamacoes, total)}%)`;
+
+            document.getElementById("sugestoes").innerText =
+                `${sugestoes} (${porcentagem(sugestoes, total)}%)`;
+
+            document.getElementById("duvidas").innerText =
+                `${duvidas} (${porcentagem(duvidas, total)}%)`;
+        }
+
+        function mostrarAvaliacoes() {
+            let filtro = document.getElementById("filtro").value;
+            let lista = document.getElementById("listaAvaliacoes");
+
+            lista.innerHTML = "";
+
+            let filtradas = avaliacoes.filter(function(avaliacao) {
+                return filtro === "Todas" || avaliacao.categoria === filtro;
+            });
+
+            document.getElementById("quantidadeExibida").innerText =
+                `Exibindo ${filtradas.length} de ${avaliacoes.length} avaliações`;
+
+            filtradas.forEach(function(avaliacao) {
+                let item = document.createElement("div");
+
+                let categoria = document.createElement("strong");
+                categoria.innerText = avaliacao.categoria;
+
+                let mensagem = document.createElement("p");
+                mensagem.innerText = avaliacao.mensagem;
+
+                item.appendChild(categoria);
+                item.appendChild(mensagem);
+
+                lista.appendChild(item);
+            });
+        }
+
+        function porcentagem(quantidade, total) {
+            if (total === 0) return 0;
+
+            return ((quantidade / total) * 100).toFixed(1);
+        }
     </script>
-
 </body>
-
 
 </html>
