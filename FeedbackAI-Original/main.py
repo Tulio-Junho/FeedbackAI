@@ -73,7 +73,6 @@ for feedback in arquivo:
     print("=================================")
     contador += 1
 
-
     escritor.writerow([feedback.strip(), categoria])
 
     if categoria == "Elogio":
