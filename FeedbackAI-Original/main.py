@@ -49,9 +49,6 @@ for feedback in arquivo:
 
             categoria = resposta.text.strip()
 
-            print("Entrada:", resposta.usage_metadata.prompt_token_count)
-            print("Saída:", resposta.usage_metadata.candidates_token_count)
-            print("Total:", resposta.usage_metadata.total_token_count)
             break
 
         except Exception as erro:
