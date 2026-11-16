@@ -55,15 +55,15 @@ Suas principais funcionalidades são:
 
 As avaliações e estatísticas são armazenadas temporariamente no navegador durante a utilização da página. Ao atualizar a página, os resultados são reiniciados.
 
-A versão Web não utiliza banco de dados e não realiza exportação de arquivos.
+A versão web não utiliza banco de dados e não realiza exportação de arquivos.
 
 ## ⚙️ Como executar
 
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/Tulio-Junho/FeedbackIA.git
-cd FeedbackIA
+git clone https://github.com/Tulio-Junho/FeedbackAI.git
+cd FeedbackAI
 ```
 
 ### 2. FeedbackAI Original
@@ -96,7 +96,7 @@ python main.py
 
 ### 3. FeedbackAI Web
 
-A partir da pasta principal do repositório, entre na pasta da versão Web:
+A partir da pasta principal do repositório, entre na pasta da versão web:
 
 ```bash
 cd FeedbackIA-web
@@ -136,10 +136,31 @@ Dúvidas: 16.67% - Quantidade de Dúvidas: 1
 
 Na versão web, as estatísticas são apresentadas diretamente na interface, junto à lista de avaliações classificadas.
 
+## 📊 Testes e Resultados
+
+Após o desenvolvimento da versão web, foram realizadas **10 rodadas de testes utilizando as mesmas 100 avaliações previamente categorizadas**, totalizando **1.000 classificações**.
+
+O objetivo foi avaliar a precisão e a consistência das respostas geradas pelo modelo Gemini, comparando as classificações obtidas com as categorias esperadas.
+
+### Resultados obtidos
+
+- **Avaliações distintas:** 100
+- **Rodadas realizadas:** 10
+- **Total de classificações:** 1.000
+- **Classificações corretas:** 973
+- **Divergências:** 27
+- **Taxa de acerto geral:** 97,3%
+
+### Dados dos testes
+
+Os resultados completos, incluindo as avaliações, as classificações esperadas e as respostas das 10 rodadas, estão disponíveis no arquivo CSV:
+
+[Visualizar resultados dos testes](https://github.com/Tulio-Junho/FeedbackAI/blob/main/resultados_testes/testes.csv)
+
 ## 📁 Estrutura do projeto
 
 ```text
-FeedbackIA/
+FeedbackAI/
 ├── FeedbackAI-Original/
 │   ├── main.py
 │   ├── mensagens.txt
@@ -154,6 +175,9 @@ FeedbackIA/
 │   ├── requirements.txt
 │   └── .gitignore
 │
+├── resultados_testes/
+│   └── testes.csv
+│
 ├── README.md
 └── .gitignore
 ```
@@ -165,7 +189,7 @@ Cada versão utiliza seu próprio arquivo `.env`, que deve ser criado localmente
 A versão original registra os resultados no arquivo `Resultado.csv`, organizado em duas colunas:
 
 - **Feedback:** mensagem analisada.
-- **Categoria:** classificação atribuída pelo gemini.
+- **Categoria:** classificação atribuída pelo Gemini.
 
 Esse arquivo pode ser aberto em programas como o Excel.
 
@@ -175,7 +199,7 @@ A versão web não possui exportação CSV.
 
 O projeto depende da disponibilidade da API do Gemini e de uma chave de acesso válida. O serviço pode apresentar limitações, erros ou indisponibilidade temporária.
 
-O processamento de arquivos txt na versão web realiza uma requisição para cada avaliação, portanto arquivos maiores podem levar mais tempo para serem classificados.
+O processamento de arquivos TXT na versão web realiza uma requisição para cada avaliação, portanto arquivos maiores podem levar mais tempo para serem classificados.
 
 O FeedbackAI é um projeto desenvolvido para fins de estudo e aprendizado, com o objetivo de explorar a integração de inteligência artificial com Python e desenvolvimento web.
 
