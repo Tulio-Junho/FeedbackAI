@@ -175,8 +175,6 @@ FeedbackAI/
 │   ├── requirements.txt
 │   └── .gitignore
 │
-├── resultados_testes/
-│   └── testes.csv
 │
 ├── README.md
 └── .gitignore
