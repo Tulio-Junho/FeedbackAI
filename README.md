@@ -1,4 +1,4 @@
-# FeedbackAI 🤖
+# FeedbackIA 🤖
 
 Um classificador de feedbacks desenvolvido em Python, utilizando a API do Google Gemini para analisar mensagens e classificá-las automaticamente.
 
@@ -11,12 +11,12 @@ Como exemplo de aplicação, o projeto utiliza mensagens que simulam feedbacks d
 
 ## 📌 Sobre o projeto
 
-O FeedbackAI tem como objetivo facilitar a análise de feedbacks de clientes por meio de inteligência artificial.
+O FeedbackIA tem como objetivo facilitar a análise de feedbacks de clientes por meio de inteligência artificial.
 
 O projeto possui duas versões:
 
-- **FeedbackAI Original:** aplicação Python executada pelo terminal, que lê mensagens de um arquivo TXT, classifica os feedbacks e gera um arquivo CSV com os resultados.
-- **FeedbackAI Web:** aplicação desenvolvida com Flask, HTML, CSS e JavaScript, que permite classificar avaliações diretamente pelo navegador.
+- **FeedbackIA Original:** aplicação Python executada pelo terminal, que lê mensagens de um arquivo TXT, classifica os feedbacks e gera um arquivo CSV com os resultados.
+- **FeedbackIA Web:** aplicação desenvolvida com Flask, HTML, CSS e JavaScript, que permite classificar avaliações diretamente pelo navegador.
 
 Ambas utilizam a API do Google Gemini para classificar os feedbacks em quatro categorias:
 
@@ -39,7 +39,7 @@ O projeto também apresenta estatísticas com a quantidade e a porcentagem de av
 - CSS
 - JavaScript
 
-## 🌐 FeedbackAI Web
+## 🌐 FeedbackIA Web
 
 A versão web foi desenvolvida para permitir a classificação de feedbacks por meio de uma interface simples e organizada.
 
@@ -62,11 +62,11 @@ A versão web não utiliza banco de dados e não realiza exportação de arquivo
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/Tulio-Junho/FeedbackAI.git
-cd FeedbackAI
+git clone https://github.com/Tulio-Junho/FeedbackIA.git
+cd FeedbackIA
 ```
 
-### 2. FeedbackAI Original
+### 2. FeedbackIA Original
 
 Entre na pasta da versão original:
 
@@ -94,7 +94,7 @@ Execute o programa:
 python main.py
 ```
 
-### 3. FeedbackAI Web
+### 3. FeedbackIA Web
 
 A partir da pasta principal do repositório, entre na pasta da versão web:
 
@@ -155,12 +155,12 @@ O objetivo foi avaliar a precisão e a consistência das respostas geradas pelo 
 
 Os resultados completos, incluindo as avaliações, as classificações esperadas e as respostas das 10 rodadas, estão disponíveis no arquivo CSV:
 
-[Visualizar resultados dos testes](https://github.com/Tulio-Junho/FeedbackAI/blob/main/resultados_testes/testes.csv)
+[Visualizar resultados dos testes](https://github.com/Tulio-Junho/FeedbackIA/blob/main/resultados_testes/testes.csv)
 
 ## 📁 Estrutura do projeto
 
 ```text
-FeedbackAI/
+FeedbackIA/
 ├── FeedbackAI-Original/
 │   ├── main.py
 │   ├── mensagens.txt
@@ -174,7 +174,6 @@ FeedbackAI/
 │   │   └── style.css
 │   ├── requirements.txt
 │   └── .gitignore
-│
 │
 ├── README.md
 └── .gitignore
@@ -199,7 +198,7 @@ O projeto depende da disponibilidade da API do Gemini e de uma chave de acesso v
 
 O processamento de arquivos TXT na versão web realiza uma requisição para cada avaliação, portanto arquivos maiores podem levar mais tempo para serem classificados.
 
-O FeedbackAI é um projeto desenvolvido para fins de estudo e aprendizado, com o objetivo de explorar a integração de inteligência artificial com Python e desenvolvimento web.
+O FeedbackIA é um projeto desenvolvido para fins de estudo e aprendizado, com o objetivo de explorar a integração de inteligência artificial com Python e desenvolvimento web.
 
 Novas melhorias poderão ser implementadas futuramente conforme o avanço dos estudos.
 
